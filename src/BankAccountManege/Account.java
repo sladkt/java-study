@@ -12,14 +12,17 @@ public class Account {
     }
 
 
-    public long Deposit(long money) {
+    public long deposit(long money) {
         currentMoney += money;
 
         return currentMoney;
     }
 
-    public long Withdraw(long money) {
-        if (currentMoney - money < 0) {
+    public long withdraw(long money) {
+        if(money <= 0) {
+            return -2;
+        }
+        else if (currentMoney - money < 0) {
             return -1;
         } else {
             currentMoney -= money;

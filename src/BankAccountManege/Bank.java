@@ -10,7 +10,7 @@ public class Bank{
 
     static String accountNum;
 
-    public String CreateAccount() {
+    public String createAccount() {
 
         accountNum = String.valueOf((Math.random())).substring(2);
         System.out.println("고객님의 성함을 입력해주세요.");
