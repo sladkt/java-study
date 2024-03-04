@@ -13,6 +13,9 @@ public class Account {
 
 
     public long deposit(long money) {
+        if(money <= 0){
+            return -1;
+        }
         currentMoney += money;
 
         return currentMoney;
@@ -30,7 +33,7 @@ public class Account {
         }
     }
 
-    public long CurrentMoneyCheck() {
+    public long currentMoneyCheck() {
         return currentMoney;
     }
 

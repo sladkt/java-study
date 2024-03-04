@@ -3,12 +3,7 @@ package BankAccountManege;
 import java.util.Scanner;
 
 public class ATM {
-    Bank bank = new Bank();
-    public void accountNumSearch(String accountNum){
-        for (Account account : bank.accountList){
 
-        }
-    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Bank bank = new Bank();
@@ -33,9 +28,14 @@ public class ATM {
                     if (account.accountNumber.equals(accountNum)) {
                         System.out.println("입금하길 원하시는 금액을 입력해주세요.");
                         long depositMoney = sc.nextLong();
-                        System.out.println("입금 전 돈 : " + account.CurrentMoneyCheck());
-                        System.out.println("입금 후 돈 : " + account.deposit(depositMoney));
-                        break;
+                        long depositResult = account.deposit(depositMoney);
+                        if(depositResult == -1){
+                            System.out.println("입금액은 0원을 초과해야 합니다.");
+                        } else {
+                            System.out.println("입금 전 돈 : " + (account.currentMoneyCheck() - depositMoney));
+                            System.out.println("입금 후 돈 : " + depositResult);
+                            break;
+                        }
                     }
                 }
 
@@ -45,15 +45,15 @@ public class ATM {
 
                 for (Account account : bank.accountList) {
                     if (account.accountNumber.equals(accountNum)) {
-                        System.out.println("현재 금액은 " + account.CurrentMoneyCheck() + "원입니다. 출금하길 원하시는 금액을 입력해주세요.");
+                        System.out.println("현재 금액은 " + account.currentMoneyCheck() + "원입니다. 출금하길 원하시는 금액을 입력해주세요.");
                         long withdrawMoney = sc.nextLong();
-                        long result = account.withdraw(withdrawMoney);
-                        if (result != -1) {
-                            System.out.println(withdrawMoney + "원을 출금하셨습니다. 남은 금액은 " + result + " 입니다.");
-                        } else if(result == -1) {
+                        long withdrawResult = account.withdraw(withdrawMoney);
+                        if (withdrawResult == -2) {
+                            System.out.println("출금액은 0원을 초과하여야 합니다.");
+                        } else if (withdrawResult == -1) {
                             System.out.println("현재 잔액이 부족합니다.");
-                        } else if(result == -2){
-                            System.out.println("출금액을 다시 작성하여 주세요");
+                        } else {
+                            System.out.println(withdrawMoney + "원을 출금하셨습니다. 남은 금액은 " + withdrawResult + " 입니다.");
                         }
 
                         break;
@@ -66,7 +66,7 @@ public class ATM {
                 accountNum = sc.next();
                 for (Account account : bank.accountList) {
                     if (account.accountNumber.equals(accountNum)) {
-                        System.out.println("현재 잔액은 " + account.CurrentMoneyCheck() + "원입니다.");
+                        System.out.println("현재 잔액은 " + account.currentMoneyCheck() + "원입니다.");
                         break;
                     }
                 }
