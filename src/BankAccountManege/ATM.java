@@ -3,7 +3,6 @@ package BankAccountManege;
 import java.util.Scanner;
 
 public class ATM {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Bank bank = new Bank();
@@ -17,8 +16,9 @@ public class ATM {
             int choice = sc.nextInt();
 
             if (choice == 1) {
-                System.out.println("계좌를 생성하겠습니다.");
-                accountNum = bank.createAccount();
+                System.out.println("고객님의 성함을 입력해주세요.");
+                String name = sc.next();
+                accountNum = bank.createAccount(name);
                 System.out.println("고객님의 계좌번호는 " + accountNum + " 입니다.");
 
 
@@ -26,14 +26,12 @@ public class ATM {
 
                 System.out.println("계좌번호를 입력해주세요.");
                 accountNum = sc.next();
+                acc = bank.getAccount(accountNum);
 
-                for (Account account : bank.accountList) {
-                    if (account.accountNumber.equals(accountNum)) {
-                        acc = account;
-                    }
+                if(acc == null){
+                    System.out.println("없는 계좌번호입니다.");
+                    continue;
                 }
-
-                assert acc != null;
 
                 if (choice == 2) {
                     System.out.println("입금하길 원하시는 금액을 입력해주세요.");
